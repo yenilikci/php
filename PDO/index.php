@@ -28,6 +28,10 @@ switch ($_GET['sayfa'])
     case 'oku':
         require_once 'oku.php';
         break;
+
+    case 'formUpdate':
+        require_once 'formUpdate.php';
+        break;
 }
 
 

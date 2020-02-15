@@ -25,7 +25,7 @@ $veriler = $db->query('SELECT * FROM veriler')->fetchAll(PDO::FETCH_ASSOC);
         <!--Sadece onaylı olan içeriklerin başlıkları gösterilecek.-->
             <a href="index.php?sayfa=oku&id=<?php echo $vr['id'];?>">[OKU]</a>
         <?php endif; ?>
-        <a href="">[DÜZENLE]</a>
+        <a href="index.php?sayfa=formUpdate&id=<?php echo $vr['id'] ?>">[DÜZENLE]</a>
         <a href="">[SİL]</a>
     </li>
     <?php endforeach;?>
