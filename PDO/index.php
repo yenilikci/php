@@ -32,6 +32,10 @@ switch ($_GET['sayfa'])
     case 'formUpdate':
         require_once 'formUpdate.php';
         break;
+
+    case 'sil':
+        require_once 'sil.php';
+        break;
 }
 
 
