@@ -1,5 +1,16 @@
 # PHP
 ## PDO
+**Veritabanı adı:** *veri*
+
+**Tablo adı:** *veriler*
+| id | baslik  |icerik|onay|tarih|
+| --- | --- | --- | --- | ---|
+| 1  |  pdo1 | pdo ile veritabani1 | 1|2020-02-15 22:24:39
+| 2  |  pdo2 | pdo ile veritabani2 | 1|2020-02-15 22:25:39
+| 3  |  pdo3 | pdo ile veritabani3 | 1|2020-02-15 22:26:39
+| 4  |  pdo4 | pdo ile veritabani4 | 1|2020-02-15 22:27:39
+| 5  |  pdo5 | pdo ile veritabani5 | 1|2020-02-15 22:28:39
+
 ### Veritabanı Bağlantısı  [🐘](https://github.com/yenilikci/php/blob/master/PDO/baglan.php "🐘")
 ```php
 <?php
@@ -86,5 +97,19 @@ else
 {
 	echo "Güncelleme işlemi başarısız!";
 }
+```
+### Veri Silme (DELETE) [🐘](https://github.com/yenilikci/php/blob/master/PDO/sil.php "🐘")
+```sql
+DELETE FROM Tablo_Adi WHERE id = 2
+```
+```php
+$sorgu = $db -> prepare('DELETE FROM veriler WHERE id = ?'); //veriler tablosunda id'si...
+
+$sorgu -> execute([
+    $_GET['id'] //... şu olan veriyi sil
+]);
+
+//daha sonra index.php'ye yönlendir.
+header('Location:index.php');
 ```
 
