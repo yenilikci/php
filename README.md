@@ -61,3 +61,30 @@ $sorgu -> execute([
 //zaten tek bir veri alacağız o yüzden fetch() kullandım. (o id'ye ait olan)
 $veri = $sorgu -> fetch(PDO::FETCH_ASSOC)
 ```
+### Veri Güncelleme (UPDATE) [🐘](https://github.com/yenilikci/php/blob/master/PDO/formUpdate.php "🐘")
+```sql
+UPDATE Tablo_Adi SET kolon1 = değer1 WHERE kolon=değer
+```
+```php
+  $sorgu = $db->prepare('UPDATE veriler SET
+                baslik = ?,
+                icerik = ?,
+                onay = ?
+                WHERE id = ?'); //id'si şu olan...
+
+//sorgu değişkenimi execute ediyorum ve güncelle değişkenine atıyorum.
+  $guncelle = $sorgu->execute([
+                $baslik, $icerik, $onay, $veri['id']
+            ]);
+	    
+//eğer güncelleme başarılıysa
+if ($guncelle) 
+{
+	header('Location:index.php?sayfa=oku&id=' . $veri['id']);
+} 
+else
+{
+	echo "Güncelleme işlemi başarısız!";
+}
+```
+
