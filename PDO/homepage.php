@@ -1,0 +1,1 @@
+<a href="index.php/?sayfa=formInsert">[İçerik Ekle]</a>
