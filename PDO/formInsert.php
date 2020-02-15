@@ -1,3 +1,4 @@
+<?php include 'baglan.php'?>
 <?php
 //burada veritabanına form ile ekleme işlemi yapacağız.
 //veriler diye bir tablo oluşturduğumuzu varsayalım.

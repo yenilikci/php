@@ -1,6 +1,4 @@
 <?php
-require_once 'baglan.php';
-
 //sayfa isimli get değerim var mı diye kontrol ediyor eğer yoksa kendim bu değere index atıyorum.
 if (!isset($_GET['sayfa']))
 {
@@ -24,6 +22,11 @@ switch ($_GET['sayfa'])
     case 'formInsert':
         //formInsert.php dahil edildi.
         require_once 'formInsert.php';
+        break;
+
+    //
+    case 'oku':
+        require_once 'oku.php';
         break;
 }
 
