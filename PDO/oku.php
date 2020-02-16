@@ -1,4 +1,3 @@
-<?php require 'header.php';?>
 <?php
 //eğer id yoksa veya boşsa
 if (!isset($_GET['id']) || empty($_GET['id']))

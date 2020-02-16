@@ -1,4 +1,3 @@
-<?php require 'header.php' ?>
 <?php
 
 //eğer veri yoksa ya da boşsa

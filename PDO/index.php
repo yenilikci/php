@@ -1,4 +1,8 @@
 <?php
+
+ob_start();
+require_once 'header.php';
+
 //sayfa isimli get değerim var mı diye kontrol ediyor eğer yoksa kendim bu değere index atıyorum.
 if (!isset($_GET['sayfa']))
 {
@@ -24,17 +28,29 @@ switch ($_GET['sayfa'])
         require_once 'formInsert.php';
         break;
 
-    //
+    //veri ayrıntı sayfası
     case 'oku':
         require_once 'oku.php';
         break;
 
+    //veri güncelleme
     case 'formUpdate':
         require_once 'formUpdate.php';
         break;
 
+    //veri sil
     case 'sil':
         require_once 'sil.php';
+        break;
+
+    //kategoriler
+    case 'kategoriler':
+        require_once 'kategoriler.php';
+        break;
+
+    //kategori ekle
+    case 'kategori_ekle':
+        require_once 'kategori_ekle.php';
         break;
 }
 

@@ -1,6 +1,4 @@
-<?php require 'header.php';?>
 <?php
-
 //UPDATE Tablo_adi SET kolon1 = değer1 WHERE kolon=değer
 
 $sorgu = $db->prepare('UPDATE veriler SET

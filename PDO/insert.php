@@ -1,4 +1,3 @@
-<?php require 'header.php';?>
 <?php
 
 //burada veritabanına ekleme işlemi yapacağız.
