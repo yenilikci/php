@@ -28,7 +28,7 @@
 ```
 ### Veri Ekleme (INSERT) [🐘](https://github.com/yenilikci/php/blob/master/PDO/formInsert.php "🐘")
 ```sql
-INSERT INTO Tablo_Adi SET kolon1=değer1
+INSERT INTO Tablo_Adi SET kolon1=değer1;
 ```
 ```php
 //veriler tablosuna ekleme işlemi
@@ -59,7 +59,7 @@ else
 ```
 ### Veri Listeleme (SELECT) 🐘
 ```sql
-SELECT * FROM Tablo_Adi WHERE id = ?
+SELECT * FROM Tablo_Adi WHERE id = ?;
 ```
 ```php
 //veriler tablosundan id'si =
@@ -74,7 +74,7 @@ $veri = $sorgu -> fetch(PDO::FETCH_ASSOC)
 ```
 ### Veri Güncelleme (UPDATE) [🐘](https://github.com/yenilikci/php/blob/master/PDO/formUpdate.php "🐘")
 ```sql
-UPDATE Tablo_Adi SET kolon1 = değer1 WHERE kolon=değer
+UPDATE Tablo_Adi SET kolon1 = değer1 WHERE kolon=değer;
 ```
 ```php
   $sorgu = $db->prepare('UPDATE veriler SET
@@ -100,7 +100,7 @@ else
 ```
 ### Veri Silme (DELETE) [🐘](https://github.com/yenilikci/php/blob/master/PDO/sil.php "🐘")
 ```sql
-DELETE FROM Tablo_Adi WHERE id = 2
+DELETE FROM Tablo_Adi WHERE id = 2;
 ```
 ```php
 $sorgu = $db -> prepare('DELETE FROM veriler WHERE id = ?'); //veriler tablosunda id'si...
@@ -111,5 +111,96 @@ $sorgu -> execute([
 
 //daha sonra index.php'ye yönlendir.
 header('Location:index.php');
+```
+
+> Şimdi ise verilerimizi ilişkilendirebilmek için "**verikategorisi**" isimli bir tablo daha oluşturuyoruz.
+
+**Veritabanı adı:** *veri* (aynı veritabanında çalışıyoruz)
+
+**Tablo adı:** *verikategorisi*
+
+| id | ad  |
+| --- | --- |
+| 1  |  php |
+| 2  |  asp.net core | 
+| 3  |  nodejs | 
+| 4  |  django |
+
+bununla birlikte **veriler** tablomuza verikategorisi tablosunun id'si ile eşleştireceğimiz **kategori_id** kolonunu ekliyoruz.
+
+
+| id | baslik  |icerik |kategori_id|onay|tarih|
+| --- | --- | --- | --- | ---|---|
+| 1  |  pdo1 | pdo ile veritabani1 | 1|1|2020-02-15 22:24:39
+| 2  |  pdo2 | pdo ile veritabani2 |1| 1|2020-02-15 22:25:39
+| 3  |  pdo3 | pdo ile veritabani3 | 1|1|2020-02-15 22:26:39
+| 4  |  pdo4 | pdo ile veritabani4 | 1|1|2020-02-15 22:27:39
+| 5  |  pdo5 | pdo ile veritabani5 | 1|1|2020-02-15 22:28:39
+
+### Birleştirici (JOIN) Kullanımı [🐘](https://github.com/yenilikci/php/blob/master/PDO/homepage.php "🐘")
+```sql
+INNER JOIN Tablo_Adi ON Tablo_Adi.id = digerTablo_Adi.id;
+```
+Inner Join ile ortak değere sahip iki tablodaki ilişkili değerleri seçelim ve birleştirelim.
+> Query içinde kullanımı:
+
+```sql
+SELECT veriler.id , veriler.baslik , verikategorisi.ad AS kategori_adi , veriler.onay FROM veriler
+INNER JOIN verikategorisi ON verikategorisi.id = veriler.kategori_id
+ORDER BY veriler.id DESC;
+```
+fetchAll() ile bu verileri çektiğimizi ve $veriler isimli bir değişkene atadığımızı varsayalım.
+
+```php
+<?php if ($veriler): ?>
+        <ul>
+        <!-- foreach ile veriler çekiliyor $veriler as $vr-->
+    <?php foreach ($veriler as $vr): ?>
+        <li>
+            <!--İçeriklerin başlıkları ve kategorileri listelendi-->
+            <?php echo $vr['baslik']; ?>
+            (<?php echo $vr['kategori_adi']; ?>)
+            <div>
+              <?php if($vr['onay'] == 1): ?>
+                  <!--Sadece onaylı olan içeriklerin başlıkları gösterilecek.-->
+                  <a href="index.php?sayfa=oku&id=<?php echo $vr['id'];?>">[OKU]</a>
+              <?php endif; ?>
+              <a href="index.php?sayfa=formUpdate&id=<?php echo $vr['id'] ?>">[DÜZENLE]</a>
+              <a href="index.php?sayfa=sil&id=<?php echo $vr['id'] ?>">[SİL]</a>
+          </div>
+        </li>
+    <?php endforeach;?>
+        </ul>
+<?php else: ?>
+    <!--veri yoksa...-->
+    <div>Henüz eklenmiş veri bulunmuyor!</div>
+<?php endif; ?>
+```
+#### Left Join
+```sql
+SELECT * FROM Tablo_Adi LEFT JOIN digerTablo_Adi ON Tablo_adi.id = digerTablo_Adi.id;
+```
+Sol tablodaki tüm satırları ve koşula uygun olan sağ tablodaki satırları seçip birleştirelim ve bunları gruplayalım.
+> Query içinde kullanımı:
+
+```sql
+SELECT verikategorisi.* , COUNT(veriler.id) AS toplamVeri 
+FROM verikategorisi
+LEFT JOIN veriler ON veriler.kategori_id = verikategorisi.id
+GROUP BY verikategorisi.id
+```
+fetchAll() ile bu verileri çektiğimizi ve $kategori isimli bir değişkene atadığımızı varsayalım.
+
+```php
+<ul>
+    <?php foreach ($kategori as $kt): ?>
+    <li>
+        <a href="index.php?sayfa=kategori&id=<?php echo $kt['id'];?>">
+            <?php echo $kt['ad']; ?>
+            (<?php echo $kt['toplamVeri']; ?>)
+        </a>
+    </li>
+    <?php endforeach; ?>
+</ul>
 ```
 
