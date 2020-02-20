@@ -28,7 +28,7 @@
 ```
 ### Veri Ekleme (INSERT) [🐘](https://github.com/yenilikci/php/blob/master/PDO/formInsert.php "🐘")
 ```sql
-INSERT INTO Tablo_Adi SET kolon1=değer1;
+INSERT INTO Tablo_Adi SET kolon1 = değer1;
 ```
 ```php
 //veriler tablosuna ekleme işlemi
@@ -203,4 +203,39 @@ fetchAll() ile bu verileri çektiğimizi ve $kategori isimli bir değişkene ata
     <?php endforeach; ?>
 </ul>
 ```
+### Arama İşlemi (LIKE) Kulanımı [🐘](https://github.com/yenilikci/php/blob/master/PDO/homepage.php "🐘")
+```sql
+SELECT * FROM Tablo_Adi WHERE Kolon_Adi LIKE "%a%";
+```
+LIKE komutu WHERE komutu ile birlikte bir kolonda ilgili değeri aramak için kullanılır.
+
+####  Joker Karakterler:
+##### * Birden fazla bilinmeyen karakteri sorgulatacaksak kullanırız. 
+##### # Bilinmeyen tek rakam için kullanırız.
+##### ? Bilinmeyen tek karakter için kullanırız.
+
+> Query içinde kullanımı:
+
+```php
+<?php
+
+$sql = ' SELECT veriler.id,veriler.baslik,verikategorisi.ad as kategori_adi,veriler.onay FROM veriler
+INNER JOIN verikategorisi ON verikategorisi.id = veriler.kategori_id'; 
+//sql sorgumu değişkene atadım
+
+if (isset($_GET['arama'])) //eğer bir arama yapılmışsa
+{
+    //bu ifadeyi de sql ifademe dahil edeceğim:
+    $sql .= ' WHERE veriler.baslik LIKE "%' . $_GET['arama'] . '%" || veriler.icerik LIKE "%' . $_GET['arama'] . '%" ';
+}
+$sql .= ' ORDER BY veriler.id DESC';
+
+
+$veriler = $db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+//son eklenen verilere göre listele
+
+?>
+
+```
+
 
