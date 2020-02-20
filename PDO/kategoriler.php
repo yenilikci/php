@@ -2,17 +2,19 @@
 <?php
 
 //verikategorisi bilgilerini getirmek için.
-$sorgu = $db -> prepare('SELECT * FROM verikategorisi');
-$sorgu -> execute();
-$getir = $sorgu -> fetchAll(PDO::FETCH_ASSOC);
-
+$kategori = $db -> query('SELECT verikategorisi.* , COUNT(veriler.id) AS toplamVeri 
+FROM verikategorisi
+LEFT JOIN veriler ON veriler.kategori_id = verikategorisi.id
+GROUP BY verikategorisi.id')->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <ul>
-    <?php foreach ($getir as $gt): ?>
+    <?php foreach ($kategori as $kt): ?>
     <li>
-        <a href="index.php?sayfa=kategori&id=<?php echo $gt['id'];?>">
-            <?php echo $gt['ad']; ?>
+        <a href="index.php?sayfa=kategori&id=<?php echo $kt['id'];?>">
+            <?php echo $kt['ad']; ?>
+            (<?php echo $kt['toplamVeri']; ?>) <!--Yukarıda COUNT ifadesi sayesinde kategoriler
+            için mevcut olan toplam veri sayısı elde edilmiş oldu.-->
         </a>
     </li>
     <?php endforeach; ?>

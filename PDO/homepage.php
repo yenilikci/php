@@ -1,4 +1,16 @@
 <h3>Veriler - Başlıklar</h3>
+
+<!-- LIKE kullanımı anlatılırken eklendi -->
+
+<form action="" method="get">
+    <input type="text" name="arama" placeholder="Verilerde Arama Yap" value="<?php echo isset($_GET['arama']) ? $_GET['arama'] : '' ?>">
+    <!-- Eğer arama yapılmışsa get edilen değer input text'in değeri olarak yazacak-->
+    <button type="submit">ARAMA</button>
+</form>
+
+<!-- LIKE kullanımı anlatılırken eklendi -->
+
+
 <?php
 
 //SELECT * FROM Tablo_adi
@@ -19,11 +31,24 @@ $veriler = $sorgu->fetchAll(PDO::FETCH_ASSOC);
 
 //verikategorisi tablosu eklendikten sonraki INNER JOIN'li hali:
 //INNER JOIN Tablo_Adi ON Tablo_Adi.id = digerTablo_Adi.id
-$veriler = $db->query('SELECT veriler.id,veriler.baslik,verikategorisi.ad as kategori_adi,veriler.onay FROM veriler
-INNER JOIN verikategorisi ON verikategorisi.id = veriler.kategori_id
-ORDER BY veriler.id DESC')->fetchAll(PDO::FETCH_ASSOC); //son eklenen verilere göre listele
+
+$sql = ' SELECT veriler.id,veriler.baslik,verikategorisi.ad as kategori_adi,veriler.onay FROM veriler
+INNER JOIN verikategorisi ON verikategorisi.id = veriler.kategori_id'; //sql sorgumu değişkene atadım
+
+if (isset($_GET['arama'])) //eğer bir arama yapılmışsa
+{
+    //bu ifadeyi de sql ifademe dahil edeceğim:
+    $sql .= ' WHERE veriler.baslik LIKE "%' . $_GET['arama'] . '%" || veriler.icerik LIKE "%' . $_GET['arama'] . '%" ';
+}
+
+//. operatörü ile ifadeleri birbirine bağlayalım
+$sql .= ' ORDER BY veriler.id DESC';
+
+
+$veriler = $db->query($sql)->fetchAll(PDO::FETCH_ASSOC); //son eklenen verilere göre listele
 
 ?>
+
 
 <!--Eğer veri varsa-->
 <?php if ($veriler): ?>
@@ -46,7 +71,15 @@ ORDER BY veriler.id DESC')->fetchAll(PDO::FETCH_ASSOC); //son eklenen verilere g
     <?php endforeach;?>
         </ul>
 <?php else: ?>
-    <!--veri yoksa...-->
-    <div>Henüz eklenmiş ders bulunmuyor!</div>
+    <div>
+        <!--arama var ama içerik yoksa:-->
+        <?php if($_GET['arama']): ?>
+        Aradığınız kritere uygun veri bulunamadı!
+        <?php else: ?>
+        <!--İçerik yoksada farklı bir hata mesajı:-->
+        Henüz eklenmiş veri bulunmuyor!
+        <?php endif; ?>
+
+    </div>
 <?php endif; ?>
 
