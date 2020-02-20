@@ -1,4 +1,18 @@
 # PHP
+## Başlıklar
+
+
+* [PDO](https://github.com/yenilikci/php#pdo "PDO")
+  * [Veritabanı Bağlantısı](https://github.com/yenilikci/php#veritaban%C4%B1-ba%C4%9Flant%C4%B1s%C4%B1-- "Veritabanı Bağlantısı")
+  * [Veri Ekleme (INSERT)](https://github.com/yenilikci/php#veri-ekleme-insert- "Veri Ekleme (INSERT)")
+  * [Veri Listeleme (SELECT](https://github.com/yenilikci/php#veri-listeleme-select- "Veri Listeleme (SELECT")) 
+  * [Veri Güncelleme (UPDATE)](https://github.com/yenilikci/php#veri-g%C3%BCncelleme-update- "Veri Güncelleme (UPDATE)")
+  * [Veri Silme (DELETE) ](https://github.com/yenilikci/php#veri-silme-delete- "Veri Silme (DELETE)")
+  * [Birleştirici (JOIN) Kullanımı](https://github.com/yenilikci/php#birle%C5%9Ftirici-join-kullan%C4%B1m%C4%B1- "Birleştirici (JOIN) Kullanımı")
+  * [Arama İşlemi (LIKE) Kulanımı](https://github.com/yenilikci/php#arama-i%CC%87%C5%9Flemi-like-kulan%C4%B1m%C4%B1- "Arama İşlemi (LIKE) Kulanımı") 
+
+
+
 ## PDO
 **Veritabanı adı:** *veri*
 
