@@ -14,6 +14,8 @@
   * [Sınıflar](https://github.com/yenilikci/php#s%C4%B1n%C4%B1flar- "Sınıflar")
   * [Görünürlük](https://github.com/yenilikci/php/blob/master/README.md#g%C3%B6r%C3%BCn%C3%BCrl%C3%BCk- "Görünürlük")
   * [Kurucu ve Yıkıcı Metot](https://github.com/yenilikci/php/blob/master/README.md#kurucu-ve-y%C4%B1k%C4%B1c%C4%B1-metot- "Kurucu ve Yıkıcı Metot")
+  * [Kalıtım]( "Kalıtım")
+
 
 
 ## PDO
@@ -476,5 +478,91 @@ $nesne->bas();
 
 ![çıktı](https://user-images.githubusercontent.com/57464067/81704814-f377fc00-9476-11ea-9aed-2387e4953b53.png)
 
+### Kalıtım [🐘](https://github.com/yenilikci/php/blob/master/OOP/kalitim.php "🐘")
 
+Kalıtım sınıf ve nesne ilişkilerini düzenleyen iyi kurgulanmış bir prensiptir.
+Türeyen sınıflar ,türetilen sınıfların özellik ve metotlarını public ve protected olduğu sürece kullanabilirler.
+Genişletmek için extends deyimi kullanılır.
+
+Örnek bir temel(base) - ebeveyn(parent) sınıf :
+```php
+class Calisan
+{
+    public $maas;
+    public $adsoyad;
+
+    public function setAdSoyad($adsoyad)
+    {
+        //sınıfın içerisindeki adsoyad dışarıdan gelen adsoyad değerine eşit olsun
+        $this->adsoyad = $adsoyad;
+    }
+
+    public function maas($maas)
+    {
+        //sınıfın içerisinde maas dışarıdan gelen maas değerine eşit olsun
+        $this->maas = $maas;
+    }
+
+    public function senelikMaas()
+    {
+        return ($this->maas*12).'₺';
+    }
+}
+```
+
+Calisan sınıfından türetilen Muhasebe sınıfı:
+```php
+class Muhasebe extends Calisan{}
+```
+Calisan sınıfından türetilen IT sınıfı:
+> Temel sınıfta bulunan bir fonksiyonu türeyen sınıfta tekrar tanımlayıp ama temel sınıftaki fonksiyonu kullanmak istersem parent deyimini kullanırım
+```php
+class IT extends Calisan{
+    public function senelikMaas()
+    {
+        return 'IT Çalışanı: '.$this->adsoyad.' senelik maaş olarak '.parent::senelikMaas();
+    }
+}
+```
+
+Zincirleme olarak kalıtım almak ve en aşağıdaki sınıftan en temel sınıfın özellik ve metotlarına erişmek:
+```php
+<?php
+
+
+class x
+{
+    public function bas()
+    {
+        return 'x:bas';
+    }
+}
+class y extends x
+{
+    public function bas()
+    {
+        return 'y:bas';
+    }
+}
+class z extends y
+{
+    public function bas()
+    {
+        return 'z:bas';
+    }
+    public function basGetir()
+    {
+        return [
+            'z' => self::bas(),
+            'y' => parent::bas(),
+            'x' => x::bas()
+        ];
+    }
+}
+
+$z = new z;
+print_r($z->basGetir());
+
+?>
+```
 
