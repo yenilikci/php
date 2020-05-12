@@ -12,7 +12,7 @@
   * [Arama İşlemi (LIKE) Kulanımı](https://github.com/yenilikci/php#arama-i%CC%87%C5%9Flemi-like-kulan%C4%B1m%C4%B1- "Arama İşlemi (LIKE) Kulanımı") 
 * [OOP](https://github.com/yenilikci/php#pdo "PDO")
   * [Sınıflar](https://github.com/yenilikci/php#s%C4%B1n%C4%B1flar- "Sınıflar")
-  * [Görünürlük](https://github.com/yenilikci/php/blob/master/OOP/gorunurluk.php- "Görünürlük")
+  * [Görünürlük](https://github.com/yenilikci/php/blob/master/README.md#g%C3%B6r%C3%BCn%C3%BCrl%C3%BCk- "Görünürlük")
 
 
 ## PDO
@@ -376,7 +376,7 @@ echo $uye->dogumTarihi2(); //self kullanıldı
 
 ### Görünürlük [🐘](https://github.com/yenilikci/php/blob/master/OOP/gorunurluk.php "🐘")
 Bir özellik, sabit ya da metodun görünürlüğünü üç farklı şekilde belirleyebiliriz.
-Tüm kullanımlara örnek sınıf üzerinden bakacak olursak:
+Kullanımlara örnek sınıf üzerinden bakacak olursak:
 ```php
 class Test
 {
