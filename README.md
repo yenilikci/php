@@ -10,7 +10,8 @@
   * [Veri Silme (DELETE) ](https://github.com/yenilikci/php#veri-silme-delete- "Veri Silme (DELETE)")
   * [Birleştirici (JOIN) Kullanımı](https://github.com/yenilikci/php#birle%C5%9Ftirici-join-kullan%C4%B1m%C4%B1- "Birleştirici (JOIN) Kullanımı")
   * [Arama İşlemi (LIKE) Kulanımı](https://github.com/yenilikci/php#arama-i%CC%87%C5%9Flemi-like-kulan%C4%B1m%C4%B1- "Arama İşlemi (LIKE) Kulanımı") 
-
+* [OOP](https://github.com/yenilikci/php#pdo "PDO")
+  * [Sınıflar]()
 
 
 ## PDO
@@ -251,5 +252,120 @@ $veriler = $db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 ```
+## OOP
+### Sınıflar [🐘](https://github.com/yenilikci/php/blob/master/OOP/sinif.php "🐘")
+Bir sınfı tanımlamak için class anahtar kelimesi kullanılır ve ardından sınıfın özel ismi yazılır.
+Sınıflar isimlendirilirken barındıracağı özellikler neticesinde ve yerine getireceği işlevler düşünülerek isimlendirme yapılması mantıklı olandır.
+İsimlendirme yapılırken türkçe karakter kullanımına izin vermektedir.
+Harf veya alt çizgi ile sınıf ismini başlatabiliriz.
 
+**Örnek Sınıf Kullanımı:**
+```php
+class Uye
+{ 
+    public $ad = 'Melih'; //özellik tanımlamaları
+    public $soyad = 'Celik';
+    const DOGUMTARIHI = 1999; //sabit tanımı
+    
+    //başına public koyulmaz ise varsayılan olarak public atanır
+    function stringAdDondur()
+    {
+        return 'Melih';
+    }
 
+    public function stringSoyadDondur()
+    {
+        return 'Celik';
+    }
+
+    //geriye değer döndüren parametreli fonksiyon
+    public function kacYasinda($gunumuz,$dogumTarihi)
+    {   
+        return $gunumuz - $dogumTarihi;
+    }
+
+    //özellikleri kullanarak fonksiyon içerisinde değer geri döndürmek için $this kullanılır ve this ile yerel özelliklere erişim sağlanır.
+    function adDondur()
+    {
+        return $this->ad;
+    }
+    function soyadDondur()
+    {
+        return $this->soyad;
+    }
+
+    //fonksiyon içerisinde fonksiyonumuzu döndürmek isteseydik
+    function yasBas()
+    {
+        return $this->kacYasinda(2020,$this::DOGUMTARIHI);
+    }
+    
+    //sabiti geriye döndürmek
+    function dogumTarihi()
+    {
+        return $this::DOGUMTARIHI;
+    }//veya self kullanabiliriz
+    function dogumTarihi2()
+    {
+        return self::DOGUMTARIHI;
+    }
+}
+```
+**Şimdi bu sınıftan nesneler türetelim**
+```php
+//sınıftan nesne olusturma
+$uye = new Uye();
+//veya 
+$uye2 = new Uye;
+```
+**nesnelerimiz ile bu sınıfın özellik ve metotlarına erişelim:**
+
+> Sınıf içerisindeki özelliklere ve metotlara erişmek için -> işareti kullanılır
+
+Metotlara erişmek ve ekrana yazdırmak
+```php
+echo $uye->stringAdDondur() . "<br>";
+```
+Özelliğe erişmek ve ekrana yazdırmak
+```php
+echo $uye->soyad . "<br>" ;
+```
+Sabite erişmek ve ekrana yazdırmak
+```php
+echo $uye::DOGUMTARIHI;
+```
+uye2 için özelliklere farklı değerler atayalım
+```php
+$uye2->ad = 'Farklıİsim';
+$uye2->soyad = 'FarkliSoyad';
+```
+
+uye2'nin değerlerini ekrana yazalım
+```php
+echo "<hr>";
+echo "<br>". $uye2->ad;
+echo "<br>". $uye2->soyad;
+echo "<br>". $uye2::DOGUMTARIHI;
+```
+Parametreli metodu çağırmak
+```php
+echo "<hr>";
+echo "KAÇ YAŞINDALAR?" . "<br>";
+echo $uye->kacYasinda(2020,$uye::DOGUMTARIHI);
+```
+Özellik ve fonksiyonları geri döndüren fonskiyonları çağırmak 
+```php
+echo "<hr>";
+echo "Birde özellikleri geri döndürerek ad ve soyadı ekrana bastıralım" . <br>";
+echo $uye->adDondur() . "<br>";
+echo $uye->soyadDondur();
+echo "<br>". "Birde metodu geri döndürerek yaşı ekrana bastıralım" . "<br>";
+echo $uye->yasBas();
+```
+> this nesneyi referans alır,self ise sınıfı referans alır
+
+This ve self ile sabit döndüren fonksiyonların ekrana bastırılması
+```php
+echo $uye->dogumTarihi(); //this kullanıldı
+echo $uye->dogumTarihi2(); //self kullanıldı
+```
