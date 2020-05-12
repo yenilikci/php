@@ -13,6 +13,7 @@
 * [OOP](https://github.com/yenilikci/php#pdo "PDO")
   * [Sınıflar](https://github.com/yenilikci/php#s%C4%B1n%C4%B1flar- "Sınıflar")
   * [Görünürlük](https://github.com/yenilikci/php/blob/master/README.md#g%C3%B6r%C3%BCn%C3%BCrl%C3%BCk- "Görünürlük")
+  * [Kurucu ve Yıkıcı Metot](https://github.com/yenilikci/php/blob/master/README.md#kurucu-ve-y%C4%B1k%C4%B1c%C4%B1-metot- "Kurucu ve Yıkıcı Metot")
 
 
 ## PDO
@@ -420,3 +421,60 @@ echo $test->geriDonA(); //hata
 
 echo $test->geriDonC(); //hata
 ```
+### Kurucu ve Yıkıcı Metot [🐘](https://github.com/yenilikci/php/blob/master/OOP/kurucuyikici.php "🐘")
+
+Kurucu metot bir sınıf başlatıldığında otomatik olarak çağrılacak fonksiyondur.
+```php
+    public function __construct($a)
+    {
+			.		.		.
+    }
+```
+
+Yıkıcı metot bir sınıfın çalışması bittiğinde çalışacak son metot.
+```php
+    public function __destruct()
+    {
+			.		.		.
+    }
+```
+
+Örneğin;
+```php
+<?php
+
+class YapYik
+{
+    private $degisken;
+
+    //parametreli kurucu metot
+    public function __construct($a)
+    {
+        $this->degisken = $a;
+        echo $this->degisken.PHP_EOL;
+    }
+
+    public function bas()
+    {
+        echo 'ekrana yazı bastım'.PHP_EOL;
+    }
+
+    //yıkıcı metot
+    public function __destruct()
+    {
+        echo 'yıkıcı metot çalıştı'.PHP_EOL;
+    }
+
+}
+ 
+$nesne = new YapYik('Kurucu metot çalıştı');
+$nesne->bas();
+
+?>
+```
+Çıktı
+
+![çıktı](https://user-images.githubusercontent.com/57464067/81704814-f377fc00-9476-11ea-9aed-2387e4953b53.png)
+
+
+
