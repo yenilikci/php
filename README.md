@@ -12,6 +12,7 @@
   * [Arama İşlemi (LIKE) Kulanımı](https://github.com/yenilikci/php#arama-i%CC%87%C5%9Flemi-like-kulan%C4%B1m%C4%B1- "Arama İşlemi (LIKE) Kulanımı") 
 * [OOP](https://github.com/yenilikci/php#pdo "PDO")
   * [Sınıflar](https://github.com/yenilikci/php#s%C4%B1n%C4%B1flar- "Sınıflar")
+  * [Görünürlük](https://github.com/yenilikci/php/blob/master/OOP/gorunurluk.php- "Görünürlük")
 
 
 ## PDO
@@ -373,3 +374,49 @@ echo $uye->dogumTarihi2(); //self kullanıldı
 
 ![php-sınıf-çıktı](https://user-images.githubusercontent.com/57464067/81638248-33ac8f80-9421-11ea-9578-f81f5bb55961.png)
 
+### Görünürlük [🐘](https://github.com/yenilikci/php/blob/master/OOP/gorunurluk.php "🐘")
+Bir özellik, sabit ya da metodun görünürlüğünü üç farklı şekilde belirleyebiliriz.
+Tüm kullanımlara örnek sınıf üzerinden bakacak olursak:
+```php
+class Test
+{
+    public $a = 'a'; //her yerden erişilebilir.
+
+    private $b = 'b'; //sadece sınıf içerisinden erişilebilir
+
+    public function geriDonB()
+    {
+        return $this->b; //private özelliği public metotta geriye döndürebilirim
+    }
+
+    protected $c = 'c';
+    //korumalı, aynı private gibi dışarıdan erişilemez sınıf içinde erişilebilir, miras aldığımız sınıfta da kullanabiliriz
+
+    private function geriDonA() //private func
+    {
+        return $this->a;
+    }
+
+    protected function geriDonC() //protected func
+    {
+        return $this->c;
+    }
+}
+```
+
+Şimdi bu özellik ve metotları ekrana bastırmaya çalışalım
+```php
+$test = new Test;
+
+echo $test->a; //bu özelliğe rahatça ekrana basabildim
+
+echo $test->b; //bu özelliği ekrana bastırmak istediğimde hata ile karşılaşıyorum
+
+echo $test->geriDonB(); //private özelliği public fonksiyon ile bastırdım
+
+echo $test->c; //hata
+
+echo $test->geriDonA(); //hata
+
+echo $test->geriDonC(); //hata
+```
