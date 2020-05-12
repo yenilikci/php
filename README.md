@@ -14,7 +14,7 @@
   * [Sınıflar](https://github.com/yenilikci/php#s%C4%B1n%C4%B1flar- "Sınıflar")
   * [Görünürlük](https://github.com/yenilikci/php/blob/master/README.md#g%C3%B6r%C3%BCn%C3%BCrl%C3%BCk- "Görünürlük")
   * [Kurucu ve Yıkıcı Metot](https://github.com/yenilikci/php/blob/master/README.md#kurucu-ve-y%C4%B1k%C4%B1c%C4%B1-metot- "Kurucu ve Yıkıcı Metot")
-  * [Kalıtım]( "Kalıtım")
+  * [Kalıtım](https://github.com/yenilikci/php/blob/master/README.md#kal%C4%B1t%C4%B1m- "Kalıtım")
 
 
 
@@ -528,7 +528,6 @@ class IT extends Calisan{
 Zincirleme olarak kalıtım almak ve en aşağıdaki sınıftan en temel sınıfın özellik ve metotlarına erişmek:
 ```php
 <?php
-
 
 class x
 {
