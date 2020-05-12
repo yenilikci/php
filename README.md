@@ -11,7 +11,7 @@
   * [Birleştirici (JOIN) Kullanımı](https://github.com/yenilikci/php#birle%C5%9Ftirici-join-kullan%C4%B1m%C4%B1- "Birleştirici (JOIN) Kullanımı")
   * [Arama İşlemi (LIKE) Kulanımı](https://github.com/yenilikci/php#arama-i%CC%87%C5%9Flemi-like-kulan%C4%B1m%C4%B1- "Arama İşlemi (LIKE) Kulanımı") 
 * [OOP](https://github.com/yenilikci/php#pdo "PDO")
-  * [Sınıflar]()
+  * [Sınıflar](https://github.com/yenilikci/php#s%C4%B1n%C4%B1flar- "Sınıflar")
 
 
 ## PDO
@@ -358,14 +358,18 @@ echo $uye->kacYasinda(2020,$uye::DOGUMTARIHI);
 echo "<hr>";
 echo "Birde özellikleri geri döndürerek ad ve soyadı ekrana bastıralım" . <br>";
 echo $uye->adDondur() . "<br>";
-echo $uye->soyadDondur();
+echo $uye->soyadDondur()."<br>";
 echo "<br>". "Birde metodu geri döndürerek yaşı ekrana bastıralım" . "<br>";
-echo $uye->yasBas();
+echo $uye->yasBas()."<br>";
 ```
 > this nesneyi referans alır,self ise sınıfı referans alır
 
 This ve self ile sabit döndüren fonksiyonların ekrana bastırılması
 ```php
-echo $uye->dogumTarihi(); //this kullanıldı
+echo $uye->dogumTarihi()."<br>"; //this kullanıldı
 echo $uye->dogumTarihi2(); //self kullanıldı
 ```
+Çıktı
+
+![php-sınıf-çıktı](https://user-images.githubusercontent.com/57464067/81638248-33ac8f80-9421-11ea-9578-f81f5bb55961.png)
+
