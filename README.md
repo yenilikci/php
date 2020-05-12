@@ -13,7 +13,7 @@
 * [OOP](https://github.com/yenilikci/php#pdo "PDO")
   * [Sınıflar](https://github.com/yenilikci/php#s%C4%B1n%C4%B1flar- "Sınıflar")
   * [Görünürlük](https://github.com/yenilikci/php/blob/master/README.md#g%C3%B6r%C3%BCn%C3%BCrl%C3%BCk- "Görünürlük")
-  * [Kurucu ve Yıkıcı Metot](- "Kurucu ve Yıkıcı Metot")
+  * [Kurucu ve Yıkıcı Metot](https://github.com/yenilikci/php/blob/master/README.md#kurucu-ve-y%C4%B1k%C4%B1c%C4%B1-metot- "Kurucu ve Yıkıcı Metot")
 
 
 ## PDO
