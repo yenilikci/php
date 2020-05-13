@@ -265,6 +265,7 @@ Harf veya alt çizgi ile sınıf ismini başlatabiliriz.
 
 **Örnek Sınıf Kullanımı:**
 ```php
+<?php
 class Uye
 { 
     public $ad = 'Melih'; //özellik tanımlamaları
@@ -314,13 +315,16 @@ class Uye
         return self::DOGUMTARIHI;
     }
 }
+?>
 ```
 **Şimdi bu sınıftan nesneler türetelim**
 ```php
+<?php
 //sınıftan nesne olusturma
 $uye = new Uye();
 //veya 
 $uye2 = new Uye;
+?>
 ```
 **nesnelerimiz ile bu sınıfın özellik ve metotlarına erişelim:**
 
@@ -346,32 +350,40 @@ $uye2->soyad = 'FarkliSoyad';
 
 uye2'nin değerlerini ekrana yazalım
 ```php
+<?php
 echo "<hr>";
 echo "<br>". $uye2->ad;
 echo "<br>". $uye2->soyad;
 echo "<br>". $uye2::DOGUMTARIHI;
+?>
 ```
 Parametreli metodu çağırmak
 ```php
+<?php
 echo "<hr>";
 echo "KAÇ YAŞINDALAR?" . "<br>";
 echo $uye->kacYasinda(2020,$uye::DOGUMTARIHI);
+?>
 ```
 Özellik ve fonksiyonları geri döndüren fonskiyonları çağırmak 
 ```php
+<?php
 echo "<hr>";
 echo "Birde özellikleri geri döndürerek ad ve soyadı ekrana bastıralım" . <br>";
 echo $uye->adDondur() . "<br>";
 echo $uye->soyadDondur()."<br>";
 echo "<br>". "Birde metodu geri döndürerek yaşı ekrana bastıralım" . "<br>";
 echo $uye->yasBas()."<br>";
+?>
 ```
 > this nesneyi referans alır,self ise sınıfı referans alır
 
 This ve self ile sabit döndüren fonksiyonların ekrana bastırılması
 ```php
+<?php
 echo $uye->dogumTarihi()."<br>"; //this kullanıldı
 echo $uye->dogumTarihi2(); //self kullanıldı
+?>
 ```
 Çıktı
 
@@ -381,6 +393,7 @@ echo $uye->dogumTarihi2(); //self kullanıldı
 Bir özellik, sabit ya da metodun görünürlüğünü üç farklı şekilde belirleyebiliriz.
 Kullanımlara örnek sınıf üzerinden bakacak olursak:
 ```php
+<?php
 class Test
 {
     public $a = 'a'; //her yerden erişilebilir.
@@ -405,10 +418,12 @@ class Test
         return $this->c;
     }
 }
+?>
 ```
 
 Şimdi bu özellik ve metotları ekrana bastırmaya çalışalım
 ```php
+<?php
 $test = new Test;
 
 echo $test->a; //bu özelliğe rahatça ekrana basabildim
@@ -422,23 +437,28 @@ echo $test->c; //hata
 echo $test->geriDonA(); //hata
 
 echo $test->geriDonC(); //hata
+?>
 ```
 ### Kurucu ve Yıkıcı Metot [🐘](https://github.com/yenilikci/php/blob/master/OOP/kurucuyikici.php "🐘")
 
 Kurucu metot bir sınıf başlatıldığında otomatik olarak çağrılacak fonksiyondur.
 ```php
+<?php
     public function __construct($a)
     {
 			.		.		.
     }
+?>
 ```
 
 Yıkıcı metot bir sınıfın çalışması bittiğinde çalışacak son metot.
 ```php
+<?php
     public function __destruct()
     {
 			.		.		.
     }
+?>
 ```
 
 Örneğin;
@@ -486,6 +506,7 @@ Genişletmek için extends deyimi kullanılır.
 
 Örnek bir temel(base) - ebeveyn(parent) sınıf :
 ```php
+<?php
 class Calisan
 {
     public $maas;
@@ -508,27 +529,31 @@ class Calisan
         return ($this->maas*12).'₺';
     }
 }
+?>
 ```
 
 Calisan sınıfından türetilen Muhasebe sınıfı:
 ```php
+<?php
 class Muhasebe extends Calisan{}
+?>
 ```
 Calisan sınıfından türetilen IT sınıfı:
 > Temel sınıfta bulunan bir fonksiyonu türeyen sınıfta tekrar tanımlayıp ama temel sınıftaki fonksiyonu kullanmak istersem parent deyimini kullanırım
 ```php
+<?php
 class IT extends Calisan{
     public function senelikMaas()
     {
         return 'IT Çalışanı: '.$this->adsoyad.' senelik maaş olarak '.parent::senelikMaas();
     }
 }
+?>
 ```
 
 Zincirleme olarak kalıtım almak ve en aşağıdaki sınıftan en temel sınıfın özellik ve metotlarına erişmek:
 ```php
 <?php
-
 class x
 {
     public function bas()
@@ -561,7 +586,6 @@ class z extends y
 
 $z = new z;
 print_r($z->basGetir());
-
 ?>
 ```
 
