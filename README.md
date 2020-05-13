@@ -15,6 +15,7 @@
   * [Görünürlük](https://github.com/yenilikci/php/blob/master/README.md#g%C3%B6r%C3%BCn%C3%BCrl%C3%BCk- "Görünürlük")
   * [Kurucu ve Yıkıcı Metot](https://github.com/yenilikci/php/blob/master/README.md#kurucu-ve-y%C4%B1k%C4%B1c%C4%B1-metot- "Kurucu ve Yıkıcı Metot")
   * [Kalıtım](https://github.com/yenilikci/php/blob/master/README.md#kal%C4%B1t%C4%B1m- "Kalıtım")
+  * [Static Deyimi](- "Static Deyimi")
 
 
 
@@ -588,4 +589,74 @@ $z = new z;
 print_r($z->basGetir());
 ?>
 ```
+### Static Deyimi [🐘](https://github.com/yenilikci/php/blob/master/OOP/staticornek.php "🐘")
 
+Static tanımlama ile sınıf örneği oluşturmadan o sınıfın static metot ve özelliklerine erişilebilir.
+Bu erişimi sağlamak için çift iki nokta erişecini kullanırız. (::)
+Fakat php şu anda sınıfların static "METOTLARINA" sınıf örneği oluşturarakta erişime izin vermektedir.
+Static metotlar ilk çağrıldığında ram'e aktarılır ve daha sonra ramden okunur, performans açısından kuvvetlidir.
+
+```php
+<?php
+
+class Test
+{
+    public static function selam()
+    {
+        return 'selam';
+    }
+}
+
+//içerisinde static metot olan bir sınıfımız varsa 
+echo Test::selam(); //new ile oluşturmadan bu şekilde metotu çağırabilirim
+
+?>
+```
+Static metotlar içerisinde yalnızca sınıfın static özelliklerine erişim sağlanabilir.
+
+```php
+<?php
+
+class Test
+{
+    public static $b = 'test2';
+
+    public static function test()
+    {
+
+        return self::$b;
+    }
+}
+
+?>
+```
+Dosya yazma, okuma işlemlerini gerçekleştiren static metotlar yazalım ve bunlara hem sınıf örneği başlatarak hemde sınıf örneği kullanmadan erişelim:
+
+```php
+<?php
+
+class File
+{
+    public static $dosyaAdi;
+    public static function Olustur($dosyaAdi,$icerik)
+    {
+        self::$dosyaAdi = $dosyaAdi;
+        $dosya = fopen($dosyaAdi,'w+');
+        fwrite($dosya,$icerik);
+        fclose($dosya);
+    }
+    public static function Oku($dosyaAdi = null)
+    {   
+        if(!$dosyaAdi) $dosyaAdi = self::$dosyaAdi; 
+        return file_get_contents($dosyaAdi);
+    }
+}
+//sınıfın örneğini oluşturmadan
+File::Olustur('a.txt','deneme içeriği');
+
+//sınıf örneklenerek
+$ds = new File;
+echo $ds->Oku();
+
+?>
+```
