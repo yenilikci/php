@@ -16,7 +16,7 @@
   * [Kurucu ve Yıkıcı Metot](https://github.com/yenilikci/php/blob/master/README.md#kurucu-ve-y%C4%B1k%C4%B1c%C4%B1-metot- "Kurucu ve Yıkıcı Metot")
   * [Kalıtım](https://github.com/yenilikci/php/blob/master/README.md#kal%C4%B1t%C4%B1m- "Kalıtım")
   * [Static Deyimi](https://github.com/yenilikci/php#static-deyimi- "Static Deyimi")
-  * [Sınıf Sabitleri](- "Sınıf Sabitleri")
+  * [Sınıf Sabitleri](https://github.com/yenilikci/php#s%C4%B1n%C4%B1f-sabitleri- "Sınıf Sabitleri")
 
 
 
