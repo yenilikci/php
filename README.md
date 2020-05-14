@@ -17,8 +17,8 @@
   * [Kalıtım](https://github.com/yenilikci/php/blob/master/README.md#kal%C4%B1t%C4%B1m- "Kalıtım")
   * [Static Deyimi](https://github.com/yenilikci/php#static-deyimi- "Static Deyimi")
   * [Sınıf Sabitleri](https://github.com/yenilikci/php#s%C4%B1n%C4%B1f-sabitleri- "Sınıf Sabitleri")
-  * [Sınıf Soyutlama](- "Sınıf Sabitleri")
-
+  * [Sınıf Soyutlama](https://github.com/yenilikci/php#s%C4%B1n%C4%B1f-soyutlama- "Sınıf Soyutlama")
+  * [Arayüzler](- "Arayüzler")
 
 
 ## PDO
@@ -664,7 +664,7 @@ echo $ds->Oku();
 ```
 ### Sınıf Sabitleri [🐘](https://github.com/yenilikci/php/blob/master/OOP/sabit.php "🐘")
 
-Sınıf sabitleri tanımlanırken const ifadesi kullanılır. Değişkenler gibi tanımlanırken $ imi kullanılmaz. 
+Sınıf sabitleri tanımlanırken **const** ifadesi kullanılır. Değişkenler gibi tanımlanırken $ imi kullanılmaz. 
 Sabitlerin değeri bir değişken,bir sınıfa ait özellik veya bir işlem olmamalıdır. Sınıf sabitleri "HER SINIF İÇİN BİR KERE AYRILIR", her sınıf örneği için ayrılmaz.
 
 Örneğin File isminde bir sınıfımız olsun ve DIRECTORY isimli bir sabit içersin:
@@ -718,7 +718,7 @@ echo "<br>". $folder->getDirectory();
 
 ### Sınıf Soyutlama [🐘](https://github.com/yenilikci/php/blob/master/OOP/soyutlama.php "🐘")
 
-Sınıfın başına abstract deyimi getirilerek bu sağlanır. Soyut sınıflarda soyut metotların (soyut metotlar tanımlanırken yine abstract deyimini kullanırız) yanında soyut olmayan metotlar da kullanılabilmektedir.
+Sınıfın başına **abstract** deyimi getirilerek bu sağlanır. Soyut sınıflarda soyut metotların (soyut metotlar tanımlanırken yine abstract deyimini kullanırız) yanında soyut olmayan metotlar da kullanılabilmektedir.
 Bu özelliği ile arayüzlerden ayrılır ve esneklik kazanır. Tanımladığımız başka bir sınıfı extends deyimi ile tanımlanan herhangi bir soyut sınıftan türetebiliriz. Türetilen bu sınıfta soyut sınıfta tanımlanan soyut metotlar bulunmak zorundadır.
 Soyut sınıflar başlatılamazlar, soyut sınıftan türettiğim normal sınıflarım ise başlatılabilirler. Soyut sınıfların soyut metotlarında sadece fonksiyon başlığı yazılır, fonksiyon gövdesi yazılmaz.
 
@@ -806,3 +806,105 @@ echo $sosyalmedya->show();
 Çıktı şu şekilde olacaktır:
 
 ![title-content](https://user-images.githubusercontent.com/57464067/81936930-9194cf00-95fb-11ea-87ac-a28366bfefa3.png)
+
+### Arayüzler [🐘](https://github.com/yenilikci/php/blob/master/OOP/arayuz.php "🐘")
+
+Arayüz tanımlamak için **interface** deyimini kullanırız. Arayüzler soyut sınıflara benzer fakat bazı temel farklılıkları vardır.
+Öncelikli farkı **arayüz**lerin tüm erişim belirleyicileri **public** olmak zorundadır, **soyut sınıf**larda bu **public, protected veya private** olabilir. <br>
+**Arayüzler** soyut metotlar ve sabitler içerir, **soyut sınıflar** soyut metotlar,sabitler,normal metotlar ve özellikler içerir. <br>
+**PHP** dilinde **arayüzlerin** diğer dillerden bir farklılığı vardır, **static metotları da içerebilir**. <br>
+Arayüzler nesne olarak başlatılamazlar (new anahtar kelimesi ile). <br>
+Arayüzlerin içerisinde **kurucu** ve **yıkıcı** metotlar **tanımlanabilir**. <br>
+Arayüzler kendi içerisinde **extends** deyimi ile genişleyebilir Hatta birden fazla arayüz kalıtılabilir **PHP** de sıfılar arasında çoklu kalıtım desteklenmese de arayüzler arasında bu mümkündür. <br>
+Aynı sınıfta birden fazla **arayüz** kullanılabilir, fakat aynı sınıf sadece bir **abstract** sınıftan türeyebilir.
+
+Örneğin Islem adında bir arayüz tanımlayalım:
+```php
+<?php
+interface Islem
+{
+    public function Olustur($tabloAdi,$id);
+    public function Oku($tabloAdi,$id);
+    public function Guncelle($tabloAdi,$veri,$id);
+    public function Sil($tabloAdi,$id);
+}
+?>
+```
+
+Bundan farklı olarak birde VT adında bir arayüz tanımlayalım:
+```php
+<?php
+interface VT 
+{
+    public function baglan($host,$dbname,$kadi,$sifre);
+}
+?>
+```
+Şimdi ise Veritabani sınıfımıza bu arayüzleri implement edelim:
+```php
+<?php
+class VeriTabani implements Islem,VT
+{
+    public function baglan($host,$dbname,$kadi,$sifre)
+    {
+
+    }
+
+    public function Olustur($tabloAdi,$id)
+    {
+
+    }
+    public function Oku($tabloAdi,$id)
+    {
+
+    }
+    public function Guncelle($tabloAdi,$veri,$id)
+    {
+        
+    }
+    public function Sil($tabloAdi,$id)
+    {
+
+    }
+}
+?>
+```
+Görüldüğü üzere arayüzlerde tanımlanan fonksiyonların hepsi implemente edilen VeriTabani sınıfında kullanıldı, eğer bu fonksiyonları VeriTabani sınıfında yazmasaydık hata alırdık. Fonksiyonların başında herhangi bir abstract deyimi yer almasada arayüzlerde tanımlanan fonksiyonlar soyut fonksiyon olarak tanımlandı.
+
+PHP de çoklu arayüz kullanımı ve multi-inheritance istisnası:
+```php
+<?php
+interface x
+{
+    public function basX();
+}
+
+interface y
+{
+    public function basY();
+}
+
+interface z extends x,y
+{
+    public function basZ();
+}
+
+class Test implements z
+{
+    public function basX()
+    {
+        
+    }
+    public function basY()
+    {
+        
+    }
+    public function basZ()
+    {
+
+    }
+}
+?>
+```
+
+
