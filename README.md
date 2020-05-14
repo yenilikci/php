@@ -17,6 +17,7 @@
   * [Kalıtım](https://github.com/yenilikci/php/blob/master/README.md#kal%C4%B1t%C4%B1m- "Kalıtım")
   * [Static Deyimi](https://github.com/yenilikci/php#static-deyimi- "Static Deyimi")
   * [Sınıf Sabitleri](https://github.com/yenilikci/php#s%C4%B1n%C4%B1f-sabitleri- "Sınıf Sabitleri")
+  * [Sınıf Soyutlama](- "Sınıf Sabitleri")
 
 
 
@@ -715,3 +716,93 @@ echo "<br>". $folder->getDirectory();
 
 ![const-ifadesi](https://user-images.githubusercontent.com/57464067/81931351-9f922200-95f2-11ea-88fa-a8cecf8906b8.png)
 
+### Sınıf Soyutlama [🐘](https://github.com/yenilikci/php/blob/master/OOP/soyutlama.php "🐘")
+
+Sınıfın başına abstract deyimi getirilerek bu sağlanır. Soyut sınıflarda soyut metotların (soyut metotlar tanımlanırken yine abstract deyimini kullanırız) yanında soyut olmayan metotlar da kullanılabilmektedir.
+Bu özelliği ile arayüzlerden ayrılır ve esneklik kazanır. Tanımladığımız başka bir sınıfı extends deyimi ile tanımlanan herhangi bir soyut sınıftan türetebiliriz. Türetilen bu sınıfta soyut sınıfta tanımlanan soyut metotlar bulunmak zorundadır.
+Soyut sınıflar başlatılamazlar, soyut sınıftan türettiğim normal sınıflarım ise başlatılabilirler. Soyut sınıfların soyut metotlarında sadece fonksiyon başlığı yazılır, fonksiyon gövdesi yazılmaz.
+
+Örneğin PHP tabanlı bir CMS'e eklenti geliştirdiğimiz senaryoyu ele alalım bu basit ama anlaşılır bir örnek olacak.
+Eklenti isimli bir soyut sınıf tasarlayalım:
+
+```php
+<?php
+abstract class Eklenti //soyut sınıf
+{
+    abstract public function setTitle($title); //soyut metot, gövdesi yazılmaz, zorunluluk bildirir
+    abstract public function setContent($content); //soyut metot, gövdesi yazılmaz, zorunluluk bildirir
+    //normal metot 
+    public function show()
+    {
+        echo '<h1>'.$this->title.'</h1>';
+        echo '<p>'.$this->content.'</p>';
+    }
+}
+?>
+```
+Sınıfın title ve content özelliklerini az sonra anlamlandıracağız, şimdi ise Eklenti isimli soyut sınıftan türeyen iki adet sınıf tanımlayalım.
+
+SonYorumlar sınıfı:
+```php
+<?php
+class SonYorumlar extends Eklenti //soyut sınıftan türedi
+{
+    public function setTitle($title)
+    {
+        //özelliğin tanımı metot içinde yapıldı (title)
+        $this->title = $title;
+    }
+    public function setContent($content)
+    {
+        //özelliğin tanımı metot içinde yapıldı (content)
+        $this->content = $content;
+    }
+}
+?>
+```
+SosyalMedya sınıfı:
+```php
+<?php
+class SosyalMedya extends Eklenti //soyut sınıftan türedi
+{
+    public function setTitle($title)
+    {
+        //özelliğin tanımı metot içinde yapıldı (title)
+        $this->title = $title;
+    }
+    public function setContent($content)
+    {
+        //özelliğin tanımı metot içinde yapıldı (content)
+        $this->content = $content;
+    }
+}
+?>
+```
+
+Daha sonrasında bu iki sınıfımı başlatıyorum, title ve content özelliklerini set ediyorum:
+```php
+<?php
+//SonYorumlar sınıfını başlatıyorum
+$sonyorumlar = new SonYorumlar;
+//değerleri set edelim
+$sonyorumlar->setTitle('Son Yorumlar');
+$sonyorumlar->setContent('Son Yorumlar Burada Gözükecek');
+
+//SosyalMedya sınıfını başlatıyorum
+$sosyalmedya = new SosyalMedya;
+//değerleri set edelim
+$sosyalmedya->setTitle('Sosyal Medya');
+$sosyalmedya->setContent('Sosyal Medya Bağlantıları Burada Gözükecek');
+?>
+```
+Şimdi ise soyut sınıfımda tanımladığım ama soyut olmayan show() metodum ile set edilen özellikleri her bir nesnem için çağırıyorum:
+```php
+<?php
+echo $sonyorumlar->show();
+echo "<br>";
+echo $sosyalmedya->show();
+?>
+```
+Çıktı şu şekilde olacaktır:
+
+![title-content](https://user-images.githubusercontent.com/57464067/81936930-9194cf00-95fb-11ea-87ac-a28366bfefa3.png)
