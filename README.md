@@ -15,7 +15,8 @@
   * [Görünürlük](https://github.com/yenilikci/php/blob/master/README.md#g%C3%B6r%C3%BCn%C3%BCrl%C3%BCk- "Görünürlük")
   * [Kurucu ve Yıkıcı Metot](https://github.com/yenilikci/php/blob/master/README.md#kurucu-ve-y%C4%B1k%C4%B1c%C4%B1-metot- "Kurucu ve Yıkıcı Metot")
   * [Kalıtım](https://github.com/yenilikci/php/blob/master/README.md#kal%C4%B1t%C4%B1m- "Kalıtım")
-  * [Static Deyimi](- "Static Deyimi")
+  * [Static Deyimi](https://github.com/yenilikci/php#static-deyimi- "Static Deyimi")
+  * [Sınıf Sabitleri](https://github.com/yenilikci/php#s%C4%B1n%C4%B1f-sabitleri- "Sınıf Sabitleri")
 
 
 
@@ -660,3 +661,57 @@ echo $ds->Oku();
 
 ?>
 ```
+### Sınıf Sabitleri [🐘](https://github.com/yenilikci/php/blob/master/OOP/sabit.php "🐘")
+
+Sınıf sabitleri tanımlanırken const ifadesi kullanılır. Değişkenler gibi tanımlanırken $ imi kullanılmaz. 
+Sabitlerin değeri bir değişken,bir sınıfa ait özellik veya bir işlem olmamalıdır. Sınıf sabitleri "HER SINIF İÇİN BİR KERE AYRILIR", her sınıf örneği için ayrılmaz.
+
+Örneğin File isminde bir sınıfımız olsun ve DIRECTORY isimli bir sabit içersin:
+```php
+<?php
+class File
+{
+
+    const DIRECTORY = __DIR__; // __DIR__ hangi dizinde ise bize onun ismini döndürür
+    public function getDirectory()
+    {
+        return self::DIRECTORY; //dizin yolunu geri döndürür, self(sınıfı referans alır) ile eriştim
+    }
+
+}
+?>
+```
+Geri dönen değeri ekranda görmek:
+```php
+<?php
+$file = new File;
+echo $file->getDirectory();
+
+//veya sınıfı başlatmadan da sabitin değerini alabiliriz
+
+echo "<br>". File::DIRECTORY;
+?>
+```
+Şimdi de Folder isimli bir sınıf tanımlayalım ve bu da File sınıfından türetilsin:
+```php
+<?php
+class Folder extends File
+{
+    public function getDirectory()
+    {
+        return parent::DIRECTORY; //File sınıfındaki DIRECTORY sabitini kullandım, parent(temel sınıfı)'ı baz aldım.
+    }
+}
+?>
+```
+Dizin değerini geri döndürme işlemini Folder sınıfının nesnesi ile yapalım:
+```php
+<?php
+$folder = new Folder;
+echo "<br>". $folder->getDirectory();
+?>
+```
+Çıktımız şu şekilde olacaktır:
+
+![const-ifadesi](https://user-images.githubusercontent.com/57464067/81931351-9f922200-95f2-11ea-88fa-a8cecf8906b8.png)
+
