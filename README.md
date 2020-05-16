@@ -18,7 +18,8 @@
   * [Static Deyimi](https://github.com/yenilikci/php#static-deyimi- "Static Deyimi")
   * [Sınıf Sabitleri](https://github.com/yenilikci/php#s%C4%B1n%C4%B1f-sabitleri- "Sınıf Sabitleri")
   * [Sınıf Soyutlama](https://github.com/yenilikci/php#s%C4%B1n%C4%B1f-soyutlama- "Sınıf Soyutlama")
-  * [Arayüzler](- "Arayüzler")
+  * [Arayüzler](https://github.com/yenilikci/php#aray%C3%BCzler- "Arayüzler")
+  * [İsim Uzayları](- "İsim Uzayları")
 
 
 ## PDO
@@ -906,5 +907,102 @@ class Test implements z
 }
 ?>
 ```
+### İsim Uzayları [🐘](https://github.com/yenilikci/php/tree/master/OOP/namespace/uygulama "🐘")
+
+Birden çok geliştiricisi olan bir projenin kütüphaneleri yazılırken aynı isimli sınıflar oluşturulmuş olabilir. Biz bu sınıfları kullanmak istediğimizde uygulamamız hangi kütüphanedeki sınıfı çağırması gerektiğini bilemez ve fatal error benzeri sorunlar ile karşılaşırız.Bu ve bunun gibi hataların önüne geçmek için isim uzaylarını kullanmamız gerekmektedir.
+Aynı isimli iki sınıfı farklı isim uzayları altında tanımlar ve bu isime göre sınıfımızı çağırırsak karışıklık ortadan kalkar ve modülerlik artar.
+
+İsim uzayı tanımlayabilmek için **namespace** deyimini kullanmamız gerekmektedir.Örneğin iki tane sınıf yazalım ve bu iki sınıfımızın ismi de Bildirimler olsun. Bir tanesi Uygulama klasörünün altındaki Helper klasörü altında diğeri ise Uygulama klasörünün altındaki Controller klasöründe yazılmış olsun.
+
+İsim uzayları tanımlanırken okunabilirliği artırmak için içinde bulunduğu klasör dizin yapısına göre isimlendirilmesi büyük kolaylık sağlayacaktır. Örneğin;
+
+```php
+<?php
+namespace Uygulama\Helper;
+?>
+```
+ve
+
+```php
+<?php
+namespace Uygulama\Controller;
+?>
+```
+gibi tanımlamalar yapabiliriz. Burada aslında bir klasör eşleşmesi yoktur, sınıfları gerçeklerken kolaylık olsun ve anlaşılır olsun diye isim uzaylarımızı böyle isimlendirdik.
+
+ve şimdi bu isim uzayları içerisinde sınıflarımızı tanımlayalım iki sınıfımızın ismi de Bildirimler olsun.
+
+#### uygulama->controller altındaki Bildirimler sınıfı:
+```php
+<?php
+namespace Uygulama\Controller;
+
+class Bildirimler
+{
+    public function __construct()
+    {
+        echo 'Controller İçin Bildirimler oluşturuldu!';
+    }
+}
+?>
+```
+
+#### uygulama->helper altındaki Bildirimler sınıfı:
+
+```php
+<?php
+namespace Uygulama\Helper;
+
+class Bildirimler
+{
+    public function __construct()
+    {
+        echo 'Helper İçin Bildirimler oluşturuldu!';
+    }
+}
+?>
+```
+
+Uygulama içerisindeki index.php içerisinde bu iki sınıfı gerçekleyelim bunu **use** deyimini kullanarak yapabiliriz.
+
+```php
+<?php
+// use deyimini kullanarakta yapabilirim
+use Uygulama\Controller\Bildirimler; // use namespaceismi\sınıfismi;
+$controllerBildirim = new Bildirimler
+?>
+```
+veya use deyimini **kullanmayarak**, direk nesne oluştururken isim uzayını sınıf isminin başına ekleyerekte bunu sağlayabilirim.
+```php
+<?php
+//veya şöyle bir kullanımda yapabilirim
+$helperBildirim = new Uygulama\Helper\Bildirimler;
+?>
+```
+#### index.php dosyasının son hali :
+
+```php
+<?php
+require __DIR__.'/controller/bildirimler.php';
+require __DIR__.'/helper/bildirimler.php';
+
+// use deyimini kullanarakta yapabilirim
+use Uygulama\Controller\Bildirimler; // use namespaceismi\sınıfismi;
+$controllerBildirim = new Bildirimler;
+
+echo '<br>';
+
+//veya şöyle bir kullanımda yapabilirim
+$helperBildirim = new Uygulama\Helper\Bildirimler;
+
+?>
+```
+çıktımız ise şu şekilde olacaktır:
+
+![controller-helper](https://user-images.githubusercontent.com/57464067/82132175-94ebae80-97e5-11ea-9347-f8b11f16ffaf.png)
+
+
+
+
 
 
